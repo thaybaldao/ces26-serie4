@@ -1,12 +1,22 @@
 <!DOCTYPE html> 
 <html>
 	<head> 
-	    <title>My App</title> 
+	    <title>Dog Lover's App</title> 
 	</head>
 
 	<body>
 		<h1>Welcome!</h1>
 		<p>I love dogs, do you?</p>
+		<form action="/answer" method="post"> 
+	        <input type="radio" name="answer" value="1" checked>Yes, dogs are the best!</input>
+			<input type="radio" name="answer" value="0">No...</input>
+	              
+	        <button type="submit" name="submit">SUBMIT</button> 
+	    </form> 
+	    <br>
+	    <button onclick="location.href='/pool'">Check answers!</button> 
+	    <br>
+	    <br>
 	  	<img src="/labrador.png"/>
 	  	<br> 
 	  	<br> 

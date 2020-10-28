@@ -1,11 +1,18 @@
 const express = require('express') 
 const path = require('path')
-const multer = require("multer") 
+const multer = require("multer")
+var bodyParser = require('body-parser')
 const app = express() 
   
 // Static Middleware 
 app.use(express.static(path.join(__dirname, 'public'))) 
-  
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 // View Engine Setup 
 app.set('views', path.join(__dirname, 'views')) 
 app.set('view engine', 'ejs') 
@@ -66,9 +73,37 @@ app.post("/upload",function (req, res, next) {
             res.send("Success, Image uploaded!") 
         } 
     }) 
-}) 
+})
+
+var answers = {
+  yes: 0,
+  no: 0
+};
+
+app.post("/answer", function(req, res) { 
+	var user_answer = Number(req.body.answer);
+	if(user_answer === 1){
+		answers.yes += 1;
+	} else {
+		answers.no += 1;
+	}
+
+	res.send("Success, your answer was stored!"); 
+});
+
+app.get('/pool', function(req, res){ 
+	var total = answers.yes + answers.no;
+	var perc = 0;
+	if(total > 0){
+		perc = ((answers.yes/total)*100).toFixed(2);
+		res.send(answers.yes + "/" + total + " (" + perc + "%) visitors said they love dogs!")
+	} else {
+		res.send("No visitors answered the pool.")
+	}
   
-app.listen(8080, function(error){ 
+})
+  
+app.listen(8000, function(error){ 
     if(error) throw error 
     console.log("Server created Successfully") 
 }) 
