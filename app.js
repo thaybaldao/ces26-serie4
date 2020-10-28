@@ -80,9 +80,9 @@ var answers = {
   no: 0
 };
 
-app.post("/answer", function(req, res) { 
-	var user_answer = Number(req.body.answer);
-	if(user_answer === 1){
+app.get("/answer", function(req, res) { 
+	var user_answer = Number(req.query.answer);
+	if(user_answer == 1){
 		answers.yes += 1;
 	} else {
 		answers.no += 1;

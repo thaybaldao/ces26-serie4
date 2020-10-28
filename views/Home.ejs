@@ -1,13 +1,31 @@
 <!DOCTYPE html> 
 <html>
 	<head> 
-	    <title>Dog Lover's App</title> 
+	    <title>Dog Lover's App</title>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+		$(document).ready(function(){
+		  	$("#infoButton").on("click", function() {
+			    $.getJSON( "ajax/dogs.json", function( data ) {
+				  var items = [];
+				  $.each( data, function( key, val ) {
+				    items.push( "<li id='" + key + "'>" + val + "</li>" );
+				  });
+				 
+				  $( "<ul/>", {
+				    "class": "my-new-list",
+				    html: items.join( "" )
+				  }).appendTo( "div" );
+				});
+			});
+		});
+		</script> 
 	</head>
 
 	<body>
 		<h1>Welcome!</h1>
 		<p>I love dogs, do you?</p>
-		<form action="/answer" method="post"> 
+		<form action="/answer" method="get"> 
 	        <input type="radio" name="answer" value="1" checked>Yes, dogs are the best!</input>
 			<input type="radio" name="answer" value="0">No...</input>
 	              
@@ -25,5 +43,9 @@
 	        <input type="file" name="pic" required/> <br> 
 	        <input type="submit" value="UPLOAD">  
 	    </form>
+	    <br>
+	    <button type="button" id="infoButton">Show small dog breeds</button>
+	    <br> 
+	    <div></div>
 	</body>
 </html> 
