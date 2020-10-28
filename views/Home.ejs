@@ -9,13 +9,10 @@
 			    $.getJSON( "ajax/dogs.json", function( data ) {
 				  var items = [];
 				  $.each( data, function( key, val ) {
-				    items.push( "<li id='" + key + "'>" + val + "</li>" );
+				    items.push( "- " + "<strong>" + val + "</strong><br>");
 				  });
 				 
-				  $( "<ul/>", {
-				    "class": "my-new-list",
-				    html: items.join( "" )
-				  }).appendTo( "div" );
+				  $("#info").html(items.join(""));
 				});
 			});
 		});
@@ -46,6 +43,6 @@
 	    <br>
 	    <button type="button" id="infoButton">Show small dog breeds</button>
 	    <br> 
-	    <div></div>
+	    <p id="info">The small dog breeds will be shown here</p>
 	</body>
 </html> 
